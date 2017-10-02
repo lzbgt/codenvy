@@ -15,14 +15,16 @@ import static org.eclipse.che.selenium.core.utils.PlatformUtils.isMac;
 import com.codenvy.selenium.core.client.OnpremTestAuthServiceClient;
 import com.codenvy.selenium.core.client.OnpremTestMachineServiceClient;
 import com.codenvy.selenium.core.client.OnpremTestOrganizationServiceClient;
+import com.codenvy.selenium.core.client.OnpremTestUserServiceClient;
 import com.codenvy.selenium.core.provider.OnpremTestApiEndpointUrlProvider;
 import com.codenvy.selenium.core.provider.OnpremTestDashboardUrlProvider;
 import com.codenvy.selenium.core.provider.OnpremTestIdeUrlProvider;
+import com.codenvy.selenium.core.requestfactory.TestAdminHttpJsonRequestFactory;
+import com.codenvy.selenium.core.requestfactory.TestDefaultUserHttpJsonRequestFactory;
 import com.codenvy.selenium.core.user.OnpremAdminTestUser;
 import com.codenvy.selenium.core.user.OnpremTestUserNamespaceResolver;
 import com.codenvy.selenium.core.workspace.OnpremTestWorkspaceUrlResolver;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.name.Names;
@@ -33,6 +35,7 @@ import org.eclipse.che.selenium.core.action.GenericActionsFactory;
 import org.eclipse.che.selenium.core.action.MacOSActionsFactory;
 import org.eclipse.che.selenium.core.client.TestAuthServiceClient;
 import org.eclipse.che.selenium.core.client.TestMachineServiceClient;
+import org.eclipse.che.selenium.core.client.TestUserServiceClient;
 import org.eclipse.che.selenium.core.client.TestWorkspaceServiceClientFactory;
 import org.eclipse.che.selenium.core.configuration.SeleniumTestConfiguration;
 import org.eclipse.che.selenium.core.configuration.TestConfiguration;
@@ -47,11 +50,9 @@ import org.eclipse.che.selenium.core.provider.TestSvnPasswordProvider;
 import org.eclipse.che.selenium.core.provider.TestSvnRepo1Provider;
 import org.eclipse.che.selenium.core.provider.TestSvnRepo2Provider;
 import org.eclipse.che.selenium.core.provider.TestSvnUsernameProvider;
-import org.eclipse.che.selenium.core.requestfactory.TestAdminHttpJsonRequestFactory;
-import org.eclipse.che.selenium.core.requestfactory.TestDefaultUserHttpJsonRequestFactory;
+import org.eclipse.che.selenium.core.requestfactory.TestUserHttpJsonRequestFactory;
 import org.eclipse.che.selenium.core.requestfactory.TestUserHttpJsonRequestFactoryCreator;
 import org.eclipse.che.selenium.core.user.AdminTestUser;
-import org.eclipse.che.selenium.core.user.DefaultTestUser;
 import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.core.user.TestUserFactory;
 import org.eclipse.che.selenium.core.user.TestUserImpl;
@@ -88,9 +89,11 @@ public class OnpremSeleniumSuiteModule extends AbstractModule {
     bind(TestIdeUrlProvider.class).to(OnpremTestIdeUrlProvider.class);
     bind(TestDashboardUrlProvider.class).to(OnpremTestDashboardUrlProvider.class);
 
-    bind(HttpJsonRequestFactory.class).to(TestDefaultUserHttpJsonRequestFactory.class);
+    bind(HttpJsonRequestFactory.class).to(TestUserHttpJsonRequestFactory.class);
+    bind(TestUserHttpJsonRequestFactory.class).to(TestDefaultUserHttpJsonRequestFactory.class);
     install(new FactoryModuleBuilder().build(TestUserHttpJsonRequestFactoryCreator.class));
 
+    bind(TestUserServiceClient.class).to(OnpremTestUserServiceClient.class);
     bind(TestAuthServiceClient.class).to(OnpremTestAuthServiceClient.class);
     bind(TestMachineServiceClient.class).to(OnpremTestMachineServiceClient.class);
 
@@ -110,13 +113,12 @@ public class OnpremSeleniumSuiteModule extends AbstractModule {
   @Provides
   public TestWorkspace getWorkspace(
       TestWorkspaceProvider testWorkspaceProvider,
-      Provider<DefaultTestUser> defaultUserProvider,
+      TestUser testUser,
       @Named("workspace.default_memory_gb") int defaultMemoryGb)
       throws Exception {
 
     TestWorkspace workspace =
-        testWorkspaceProvider.createWorkspace(
-            defaultUserProvider.get(), defaultMemoryGb, WorkspaceTemplate.DEFAULT);
+        testWorkspaceProvider.createWorkspace(testUser, defaultMemoryGb, WorkspaceTemplate.DEFAULT);
     workspace.await();
     return workspace;
   }

@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import org.eclipse.che.commons.lang.NameGenerator;
 import org.eclipse.che.multiuser.organization.shared.dto.OrganizationDto;
 import org.eclipse.che.selenium.core.user.AdminTestUser;
-import org.eclipse.che.selenium.core.user.DefaultTestUser;
+import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.pageobject.dashboard.NavigationBar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,6 @@ public class AdminOrganizationTest {
   private OrganizationDto parentOrganization;
   private OrganizationDto childOrganization;
 
-  @Inject private DefaultTestUser defaultTestUser;
   @Inject private OrganizationListPage organizationListPage;
   @Inject private OrganizationPage organizationPage;
   @Inject private NavigationBar navigationBar;
@@ -61,12 +60,12 @@ public class AdminOrganizationTest {
   @Named("admin")
   private OnpremTestOrganizationServiceClient organizationServiceClient;
 
-  @Inject private DefaultTestUser testUser;
+  @Inject private TestUser testUser;
   @Inject private AdminTestUser adminTestUser;
 
   @BeforeClass
   public void setUp() throws Exception {
-    dashboard.open(adminTestUser.getAuthToken());
+    dashboard.open();
 
     rootOrganization =
         organizationServiceClient.createOrganization(NameGenerator.generate("organization", 5));
@@ -79,7 +78,7 @@ public class AdminOrganizationTest {
     organizationServiceClient.addOrganizationAdmin(parentOrganization.getId(), testUser.getId());
     organizationServiceClient.addOrganizationMember(childOrganization.getId(), testUser.getId());
 
-    dashboard.open(testUser.getAuthToken());
+    dashboard.open();
   }
 
   @AfterClass

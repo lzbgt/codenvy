@@ -53,7 +53,7 @@ public class OrganizationListTest {
     organization =
         organizationServiceClient.createOrganization(NameGenerator.generate("organization", 5));
     organizations = organizationServiceClient.getOrganizations();
-    dashboard.open(adminTestUser.getAuthToken());
+    dashboard.open();
   }
 
   @AfterClass

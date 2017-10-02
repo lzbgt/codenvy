@@ -22,13 +22,13 @@ import org.eclipse.che.selenium.core.factory.FactoryTemplate;
 import org.eclipse.che.selenium.core.factory.TestFactory;
 import org.eclipse.che.selenium.core.factory.TestFactoryInitializer;
 import org.eclipse.che.selenium.core.provider.TestApiEndpointUrlProvider;
+import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.core.user.TestUserNamespaceResolver;
 import org.eclipse.che.selenium.pageobject.GitHub;
 import org.eclipse.che.selenium.pageobject.Ide;
 import org.eclipse.che.selenium.pageobject.NotificationsPopupPanel;
 import org.eclipse.che.selenium.pageobject.Profile;
 import org.eclipse.che.selenium.pageobject.ProjectExplorer;
-import org.openqa.selenium.Cookie;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -50,6 +50,7 @@ public class AuthenticateAndAcceptFactoryThroughGitHubOAuthTest {
   @Named("github.password")
   private String gitHubPassword;
 
+  @Inject private TestUser testUser;
   @Inject private TestFactoryInitializer testFactoryInitializer;
   @Inject private SeleniumWebDriver seleniumWebDriver;
   @Inject private TestUserServiceClient testUserServiceClient;
@@ -66,15 +67,9 @@ public class AuthenticateAndAcceptFactoryThroughGitHubOAuthTest {
 
   @AfterClass
   public void tearDown() throws Exception {
-    Cookie cookieNamed = ide.driver().manage().getCookieNamed("session-access-key");
-    if (cookieNamed == null) {
-      return;
-    }
-
-    String authToken = cookieNamed.getValue();
-    User user = testUserServiceClient.getUser(authToken);
+    User user = testUserServiceClient.findByEmail(testUser.getEmail());
     TestWorkspaceServiceClient workspaceServiceClient =
-        testWorkspaceServiceClientFactory.create(authToken);
+        testWorkspaceServiceClientFactory.create(testUser.getEmail(), testUser.getPassword());
     workspaceServiceClient
         .getAll()
         .forEach(
@@ -86,7 +81,7 @@ public class AuthenticateAndAcceptFactoryThroughGitHubOAuthTest {
               }
             });
 
-    testUserServiceClient.deleteByEmail(user.getEmail());
+    testUserServiceClient.remove(testUserServiceClient.findByEmail(testUser.getEmail()).getId());
     testFactory.delete();
   }
 

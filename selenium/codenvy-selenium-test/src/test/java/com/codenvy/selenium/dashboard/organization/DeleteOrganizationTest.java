@@ -20,8 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.eclipse.che.commons.lang.NameGenerator;
 import org.eclipse.che.multiuser.organization.shared.dto.OrganizationDto;
-import org.eclipse.che.selenium.core.user.AdminTestUser;
-import org.eclipse.che.selenium.core.user.DefaultTestUser;
+import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.pageobject.dashboard.Dashboard;
 import org.eclipse.che.selenium.pageobject.dashboard.NavigationBar;
 import org.testng.annotations.AfterClass;
@@ -47,12 +46,11 @@ public class DeleteOrganizationTest {
   @Named("admin")
   private OnpremTestOrganizationServiceClient organizationServiceClient;
 
-  @Inject private DefaultTestUser testUser;
-  @Inject private AdminTestUser adminTestUser;
+  @Inject private TestUser testUser;
 
   @BeforeClass
   public void setUp() throws Exception {
-    dashboard.open(adminTestUser.getAuthToken());
+    dashboard.open();
     parentOrganization =
         organizationServiceClient.createOrganization(NameGenerator.generate("organization", 5));
     childOrganization =
@@ -61,7 +59,7 @@ public class DeleteOrganizationTest {
     organizationServiceClient.addOrganizationAdmin(parentOrganization.getId(), testUser.getId());
     organizationServiceClient.addOrganizationAdmin(childOrganization.getId(), testUser.getId());
 
-    dashboard.open(testUser.getAuthToken());
+    dashboard.open();
   }
 
   @AfterClass

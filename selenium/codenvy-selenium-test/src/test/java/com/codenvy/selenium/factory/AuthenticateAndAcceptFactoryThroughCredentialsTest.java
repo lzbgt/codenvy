@@ -16,7 +16,7 @@ import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.factory.FactoryTemplate;
 import org.eclipse.che.selenium.core.factory.TestFactory;
 import org.eclipse.che.selenium.core.factory.TestFactoryInitializer;
-import org.eclipse.che.selenium.core.user.DefaultTestUser;
+import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.pageobject.Ide;
 import org.eclipse.che.selenium.pageobject.NotificationsPopupPanel;
 import org.eclipse.che.selenium.pageobject.Profile;
@@ -28,7 +28,7 @@ import org.testng.annotations.Test;
 /** @author Mihail Kuznyetsov */
 public class AuthenticateAndAcceptFactoryThroughCredentialsTest {
   @Inject private Ide ide;
-  @Inject private DefaultTestUser defaultUser;
+  @Inject private TestUser testUser;
   @Inject private ProjectExplorer projectExplorer;
   @Inject private LoginAndCreateOnpremAccountPage loginPage;
   @Inject private Profile profile;
@@ -53,7 +53,7 @@ public class AuthenticateAndAcceptFactoryThroughCredentialsTest {
     testFactory.open(ide.driver());
     loginPage.waitMainElementsOnLoginPage();
 
-    loginPage.loginToDashboard(defaultUser.getName(), defaultUser.getPassword());
+    loginPage.loginToDashboard(testUser.getName(), testUser.getPassword());
 
     profile.handleProfileOnboardingWithTestData();
     seleniumWebDriver.switchFromDashboardIframeToIde();

@@ -58,7 +58,7 @@ public class DeleteOrganizationInListTest {
 
   @BeforeClass
   public void setUp() throws Exception {
-    dashboard.open(adminTestUser.getAuthToken());
+    dashboard.open();
 
     String organizationName = NameGenerator.generate("organization", 5);
     organization = organizationServiceClient.createOrganization(organizationName);

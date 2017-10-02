@@ -22,7 +22,7 @@ import com.google.inject.name.Named;
 import java.util.ArrayList;
 import org.eclipse.che.commons.lang.NameGenerator;
 import org.eclipse.che.multiuser.organization.shared.dto.OrganizationDto;
-import org.eclipse.che.selenium.core.user.DefaultTestUser;
+import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.pageobject.dashboard.Dashboard;
 import org.eclipse.che.selenium.pageobject.dashboard.NavigationBar;
 import org.slf4j.Logger;
@@ -51,7 +51,7 @@ public class UserOrganizationTest {
   @Named("admin")
   private OnpremTestOrganizationServiceClient organizationServiceClient;
 
-  @Inject private DefaultTestUser testUser;
+  @Inject private TestUser testUser;
 
   @BeforeClass
   public void setUp() throws Exception {
@@ -64,7 +64,7 @@ public class UserOrganizationTest {
     organizationServiceClient.addOrganizationMember(parentOrganization.getId(), testUser.getId());
     organizationServiceClient.addOrganizationMember(childOrganization.getId(), testUser.getId());
 
-    dashboard.open(testUser.getAuthToken());
+    dashboard.open();
   }
 
   @AfterClass

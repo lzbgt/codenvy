@@ -103,7 +103,7 @@ public class OnpremAdminTestUser implements AdminTestUser {
                 id.updateAndGet(
                     (s) -> {
                       try {
-                        return userServiceClientProvider.get().getUser(authToken.get()).getId();
+                        return userServiceClientProvider.get().findByName(name).getId();
                       } catch (Exception e) {
                         throw new IllegalStateException(e);
                       }

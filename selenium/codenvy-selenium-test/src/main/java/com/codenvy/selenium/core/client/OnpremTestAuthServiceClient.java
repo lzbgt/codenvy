@@ -11,6 +11,7 @@
 package com.codenvy.selenium.core.client;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,9 +38,10 @@ public class OnpremTestAuthServiceClient implements TestAuthServiceClient {
 
   @Inject
   public OnpremTestAuthServiceClient(
-      TestApiEndpointUrlProvider apiEndpointProvider, HttpJsonRequestFactory requestFactory) {
+      TestApiEndpointUrlProvider apiEndpointProvider,
+      Provider<HttpJsonRequestFactory> requestFactoryProvider) {
     this.apiEndpoint = apiEndpointProvider.get().toString();
-    this.requestFactory = requestFactory;
+    this.requestFactory = requestFactoryProvider.get();
   }
 
   @Override

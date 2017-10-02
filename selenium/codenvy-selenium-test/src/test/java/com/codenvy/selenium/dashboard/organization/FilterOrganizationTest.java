@@ -56,7 +56,7 @@ public class FilterOrganizationTest {
 
   @BeforeClass
   public void setUp() throws Exception {
-    dashboard.open(adminTestUser.getAuthToken());
+    dashboard.open();
 
     organizationName = NameGenerator.generate("organization", 5);
     organizations = organizationServiceClient.getOrganizations();

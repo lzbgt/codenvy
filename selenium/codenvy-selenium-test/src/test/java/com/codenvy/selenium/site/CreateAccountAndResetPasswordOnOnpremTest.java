@@ -73,7 +73,7 @@ public class CreateAccountAndResetPasswordOnOnpremTest {
     userName = testUser.split("@")[0];
 
     try {
-      testUserServiceClient.deleteByEmail(testUser);
+      testUserServiceClient.remove(testUserServiceClient.findByEmail(testUser).getId());
     } catch (NotFoundException ignored) {
     }
 
@@ -85,7 +85,7 @@ public class CreateAccountAndResetPasswordOnOnpremTest {
     mailReceiverUtils.cleanMailBox();
 
     try {
-      testUserServiceClient.deleteByEmail(testUser);
+      testUserServiceClient.remove(testUserServiceClient.findByEmail(testUser).getId());
     } catch (NotFoundException ignored) {
     }
   }

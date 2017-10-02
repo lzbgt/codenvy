@@ -58,7 +58,7 @@ public class BulkOrganizationDeletionTest {
 
   @BeforeClass
   public void setUp() throws Exception {
-    dashboard.open(adminTestUser.getAuthToken());
+    dashboard.open();
 
     String organizationName1 = NameGenerator.generate("organization", 5);
     String organizationName2 = NameGenerator.generate("organization", 5);

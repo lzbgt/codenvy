@@ -25,7 +25,6 @@ import org.eclipse.che.multiuser.organization.shared.dto.OrganizationDto;
 import org.eclipse.che.selenium.core.client.TestProfileServiceClient;
 import org.eclipse.che.selenium.core.client.TestUserServiceClient;
 import org.eclipse.che.selenium.core.user.AdminTestUser;
-import org.eclipse.che.selenium.core.user.DefaultTestUser;
 import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.pageobject.Loader;
 import org.eclipse.che.selenium.pageobject.dashboard.Dashboard;
@@ -53,7 +52,7 @@ public class OrganizationTest {
   private OnpremTestOrganizationServiceClient organizationServiceClient;
 
   @Inject private Dashboard dashboard;
-  @Inject private DefaultTestUser testUser1;
+  @Inject private TestUser testUser1;
   @Inject private TestUser memberUser;
   @Inject private TestProfileServiceClient profileServiceClient;
   @Inject private TestUserServiceClient userApiUtils;
@@ -79,7 +78,7 @@ public class OrganizationTest {
 
     organization = organizationServiceClient.createOrganization(orgName);
 
-    dashboard.open(adminTestUser.getAuthToken());
+    dashboard.open();
   }
 
   @AfterClass
