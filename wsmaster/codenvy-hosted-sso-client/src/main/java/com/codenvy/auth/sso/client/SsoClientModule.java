@@ -11,8 +11,8 @@
 package com.codenvy.auth.sso.client;
 
 import com.codenvy.auth.sso.client.token.ChainedTokenExtractor;
-import com.codenvy.auth.sso.client.token.RequestTokenExtractor;
 import com.google.inject.AbstractModule;
+import org.eclipse.che.commons.auth.token.RequestTokenExtractor;
 import org.eclipse.che.inject.DynaModule;
 
 /**

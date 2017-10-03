@@ -12,6 +12,7 @@ package com.codenvy.auth.sso.client.token;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import org.eclipse.che.commons.auth.token.RequestTokenExtractor;
 
 /** Extract sso token from cookies. */
 public class CookieRequestTokenExtractor implements RequestTokenExtractor {

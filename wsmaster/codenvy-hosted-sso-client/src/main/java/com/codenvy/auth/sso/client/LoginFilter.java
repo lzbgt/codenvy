@@ -13,7 +13,6 @@ package com.codenvy.auth.sso.client;
 import static java.net.URLEncoder.encode;
 
 import com.codenvy.auth.sso.client.filter.RequestFilter;
-import com.codenvy.auth.sso.client.token.RequestTokenExtractor;
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.UriBuilder;
+import org.eclipse.che.commons.auth.token.RequestTokenExtractor;
 import org.eclipse.che.commons.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -12,13 +12,13 @@ package com.codenvy.wsagent.server;
 
 import com.codenvy.api.agent.CodenvyProjectServiceLinksInjector;
 import com.codenvy.auth.sso.client.TokenHandler;
-import com.codenvy.auth.sso.client.token.RequestTokenExtractor;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import org.eclipse.che.EventBusURLProvider;
 import org.eclipse.che.UserTokenProvider;
 import org.eclipse.che.api.core.rest.HttpJsonRequestFactory;
 import org.eclipse.che.api.project.server.ProjectServiceLinksInjector;
+import org.eclipse.che.commons.auth.token.RequestTokenExtractor;
 import org.eclipse.che.inject.DynaModule;
 import org.eclipse.che.multiuser.api.permission.server.HttpPermissionCheckerImpl;
 import org.eclipse.che.multiuser.api.permission.server.PermissionChecker;

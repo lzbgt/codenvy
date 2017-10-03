@@ -11,6 +11,9 @@
 package com.codenvy.auth.sso.client.token;
 
 import javax.servlet.http.HttpServletRequest;
+import org.eclipse.che.commons.auth.token.HeaderRequestTokenExtractor;
+import org.eclipse.che.commons.auth.token.QueryRequestTokenExtractor;
+import org.eclipse.che.commons.auth.token.RequestTokenExtractor;
 
 /**
  * Try to extract token from request in 3 steps. 1. From query parameter. 2. From header. 3. From
