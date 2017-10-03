@@ -299,11 +299,6 @@
             </dependency>
             <dependency>
                 <groupId>com.codenvy.onpremises.wsmaster</groupId>
-                <artifactId>codenvy-hosted-mail-sender</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.codenvy.onpremises.wsmaster</groupId>
                 <artifactId>codenvy-hosted-platform-api-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
