@@ -19,6 +19,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
+import org.eclipse.che.selenium.core.entrance.Entrance;
 import org.eclipse.che.selenium.core.provider.TestDashboardUrlProvider;
 import org.eclipse.che.selenium.core.provider.TestIdeUrlProvider;
 import org.eclipse.che.selenium.core.user.TestUser;
@@ -44,8 +45,15 @@ public class CodenvyAdminDashboard extends Dashboard {
       TestUser testUser,
       TestIdeUrlProvider testIdeUrlProvider,
       TestDashboardUrlProvider testDashboardUrlProvider,
+      Entrance entrance,
       LoginPage loginPage) {
-    super(seleniumWebDriver, testUser, testIdeUrlProvider, testDashboardUrlProvider, loginPage);
+    super(
+        seleniumWebDriver,
+        testUser,
+        testIdeUrlProvider,
+        testDashboardUrlProvider,
+        entrance,
+        loginPage);
     PageFactory.initElements(seleniumWebDriver, this);
   }
 
