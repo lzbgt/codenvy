@@ -12,9 +12,12 @@ package com.codenvy.selenium.core;
 
 import com.codenvy.selenium.OnpremSeleniumWebDriverRelatedModule;
 import com.google.inject.Module;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.che.selenium.core.inject.SeleniumTestHandler;
+import org.testng.annotations.ITestAnnotation;
 
 /** @author Anatolii Bazko */
 public class OnpremSeleniumTestHandler extends SeleniumTestHandler {
@@ -32,4 +35,11 @@ public class OnpremSeleniumTestHandler extends SeleniumTestHandler {
     modules.add(new OnpremSeleniumWebDriverRelatedModule());
     return modules;
   }
+
+  @Override
+  public void transform(
+      ITestAnnotation annotation,
+      Class testClass,
+      Constructor testConstructor,
+      Method testMethod) {}
 }

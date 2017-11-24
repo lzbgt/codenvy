@@ -14,7 +14,6 @@ import static org.eclipse.che.selenium.core.utils.PlatformUtils.isMac;
 
 import com.codenvy.selenium.core.client.OnpremTestAuthServiceClient;
 import com.codenvy.selenium.core.client.OnpremTestMachineServiceClient;
-import com.codenvy.selenium.core.client.OnpremTestOrganizationServiceClientImpl;
 import com.codenvy.selenium.core.client.OnpremTestUserServiceClient;
 import com.codenvy.selenium.core.provider.OnpremTestApiEndpointUrlProvider;
 import com.codenvy.selenium.core.provider.OnpremTestDashboardUrlProvider;
@@ -127,7 +126,7 @@ public class OnpremSeleniumSuiteModule extends AbstractModule {
   public TestOrganizationServiceClient getAdminOrganizationServiceClient(
       TestApiEndpointUrlProvider apiEndpointUrlProvider,
       TestAdminHttpJsonRequestFactory requestFactory) {
-    return new OnpremTestOrganizationServiceClientImpl(apiEndpointUrlProvider, requestFactory);
+    return new TestOrganizationServiceClient(apiEndpointUrlProvider, requestFactory);
   }
 
   @Provides
